@@ -1,10 +1,12 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
 
 const investorSchema = new Schema({
 
-    fundingAccount: {type: Types.ObjectId, ref:'AccountBalance'},
-    fundedProjects: [{type: Types.ObjectsId, ref: 'Project'}]
+    investorId: {type: Types.ObjectId, ref: "User"},
+    fundingAccount: {type: Types.ObjectId, ref: "Fund"},
+    fundedProjects: [{type: Types.ObjectId, ref: "Project"}],
+    accountBalance: {type: Types.ObjectId, ref: "AccountBalance"}
 
 }, {
     timestamps: true

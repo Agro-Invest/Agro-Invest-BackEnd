@@ -2,7 +2,10 @@ import { Schema, model, Types } from "mongoose";
 
 const farmerSchema = new Schema({
 
-    projects: [{types: Types.ObjectId, ref: 'Project'}],
+    farmerId: {type: Types.ObjectId, ref: "User"},
+    createdProjects: [{type: Types.ObjectId, ref: "Project"}],
+    fundingAccount: {type: Types.ObjectId, ref: "Fund"},
+    fundedProjects: [{type: Types.ObjectId, ref: "Project"}],
     accountBalance: {type: Types.ObjectId, ref: 'AccountBalance'}
 
 }, {

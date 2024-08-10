@@ -2,24 +2,24 @@ import { Schema, model, Types } from "mongoose"
 
 const projectSchema = new Schema({
 
-    projectTitle: {type: String},
-    projectDescription: {type: String},
-    projectStartDate: {type: Date},
-    projectEndeDate: {type: Date},
-    location: {type: String},
+    projectTitle: {type: String, required: true},
+    projectDescription: {type: String, required: true},
+    image: {type: String, required: true},
+    projectStartDate: {type: Date, required: true},
+    projectEndeDate: {type: Date, required: true},
+    location: {type: String, required: true},
     projectStatus: {type: String, enum:['Selling', 'Sold Out'], default: 'Selling'},
-    fundsNeeded: {type: Number},
-    fundsAccumulated: {type: Types.ObjectId, ref: 'transaction'},
+    fundsNeeded: {type: Number, required: true},
+    fundsAccumulated: {type: Number},
     fundingStatus: {type: String, enum:['Open', 'Closed']},
-    minimumReturnOnInvestment: {type: Number},
-    maximumReturnOnInvestment: {type: Number},
+    minimumReturnOnInvestment: {type: String, required: true},
+    maximumReturnOnInvestment: {type: String, required: true},
     createdBy: {type: Types.ObjectId, ref: 'Farmer'},
-    fundedBy: {type: Types.ObjectId, refPath: 'modelType'},
-    modelType: {type: String, enum: ['Farmer', 'Investor', 'Financial Institution']}
+    fundedBy: [{type: Types.ObjectId, ref: 'User'}],
     // NB: Require
 
 }, {
     timestamps: true
 })
 
-export const projectModel = model('Project', projectSchema);
+export const ProjectModel = model('Project', projectSchema);

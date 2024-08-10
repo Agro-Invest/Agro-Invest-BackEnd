@@ -14,10 +14,8 @@ export const signup = async (req, res, next) => {
             return res.status(400).send(error.details[0].message);
         }
         const email = value.email;
-        console.log(email);
         const findUser = await UserModel.findOne({ email })
         if(findUser){
-            console.log(findUser);
             return res.status(401).send('User already exist');
         }
         const hashPassword = await bcrypt.hash(value.password, 12);
@@ -50,6 +48,7 @@ export const sessionLogin = async (req, res, next) => {
         }
         // Generate a session
         req.session.user = { id: user.id };
+        console.log(req.session.user);
         return res.status(200).send('Login successful');
     } catch (error) {
         next(error);
