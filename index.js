@@ -1,9 +1,9 @@
 import express from "express";
+import cors from "cors";
 import expressOasGenerator from '@mickeymond/express-oas-generator';
 import mongoose from "mongoose";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-
 import { dbconnection } from "./config/db.js";
 import userRouter from "./route/userRoute.js";
 import { projectRouter } from "./route/projectRoute.js";
@@ -16,7 +16,7 @@ const app = express();
 // ExpressOasGenerator ResponseHandler
 expressOasGenerator.handleResponses(app, {
     alwaysServeDocs: true,
-    tags: ['User', 'Farmers', 'Investor'],
+    tags: ['Auth', 'Projects', "Funding", "Farmer", "Investor", "AccountBalance"],
     mongooseModels: mongoose.modelNames()
 })
 
@@ -25,6 +25,7 @@ dbconnection();
 
 // Middlewares
 app.use(express.json());
+app.use(cors({credentials:true, origin:'*'}));
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -33,7 +34,6 @@ app.use(session({
         mongoUrl: process.env.MONGO_URL
     })
 }));
-
 
 // use routes
 app.use('/api/v1', userRouter);
