@@ -6,6 +6,10 @@ import MongoStore from "connect-mongo";
 
 import { dbconnection } from "./config/db.js";
 import userRouter from "./route/userRoute.js";
+import { projectRouter } from "./route/projectRoute.js";
+import { fundingRouter } from "./route/fundingRoute.js";
+import { farmerRouter } from "./route/farmerRoute.js";
+import { accountBalanceRouter } from "./route/accountBalanceRoute.js";
 
 const app = express();
 
@@ -32,7 +36,11 @@ app.use(session({
 
 
 // use routes
-app.use('/api/v1', userRouter)
+app.use('/api/v1', userRouter);
+app.use('/api/v1', projectRouter);
+app.use('/api/v1', fundingRouter);
+app.use('/api/v1', farmerRouter);
+app.use('/api/v1', accountBalanceRouter);
 
 //ExpressOasGenerator requests
 expressOasGenerator.handleRequests();

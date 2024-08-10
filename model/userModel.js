@@ -9,7 +9,7 @@ const userSchema = new Schema({
     phoneNumber: {type: String, required: true},
     gender: {type: String, enum: ['Male', 'Female', 'Other'], required: true},
     country: {type: String, required: true},
-    role: {type: String, enum: ['Farmer', 'Investor', 'Buyer', 'Financial Institution', 'Undecided'], default: 'Undecided'},
+    role: {type: String, enum: ['Farmer', 'Investor'], default: 'Investor'},
     termsAndConditions: {type: Boolean, default: false}
 
 }, {
