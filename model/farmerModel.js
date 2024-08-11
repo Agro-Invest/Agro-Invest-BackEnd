@@ -1,4 +1,5 @@
 import { Schema, model, Types } from "mongoose";
+import { toJSON } from "@reis/mongoose-to-json";
 
 const farmerSchema = new Schema({
 
@@ -12,4 +13,5 @@ const farmerSchema = new Schema({
     timestamps: true
 })
 
+farmerSchema.plugin(toJSON);
 export const FarmerModel = model('Farmer', farmerSchema);

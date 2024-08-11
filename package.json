@@ -5,13 +5,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --env-file=.env index.js"
+    "dev": "nodemon --env-file=.env index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@mickeymond/express-oas-generator": "^1.0.47",
+    "@reis/mongoose-to-json": "^3.0.0",
     "bcrypt": "^5.1.1",
     "connect-mongo": "^5.1.0",
     "cors": "^2.8.5",
