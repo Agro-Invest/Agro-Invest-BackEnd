@@ -9,7 +9,7 @@ export const userSchema = Joi.object({
     phoneNumber: Joi.string().required(),
     gender: Joi.string().valid('Male', 'Female', 'Other').required(),
     country: Joi.string().required(),
-    role: Joi.string().valid('Farmer', 'Investor', 'Buyer', 'Financial Institution', 'Undecided'),
+    role: Joi.string().valid('Farmer', 'Investor'),
     termsAndConditions: Joi.boolean().truthy('Accept').falsy('Reject')
 })
 

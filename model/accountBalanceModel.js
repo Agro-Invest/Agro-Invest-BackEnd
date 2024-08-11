@@ -3,9 +3,9 @@ import {Schema, model, Types } from "mongoose";
 const accountBalanceSchema = new Schema({
 
     accountHolder: {type: Types.ObjectId, ref: "User"},
-    amount: {type: Number},
-    currency: {type: String, enum: ['GhC', '$'], default: 'GhC'}
-
+    currency: {type: String, enum: ['GhC', '$'], default: 'GhC'},
+    amount: {type: Number, default: 0}
+    
 }, {
     timestamps: true
 })

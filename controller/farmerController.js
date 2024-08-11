@@ -5,8 +5,8 @@ import { ProjectModel } from "../model/projectModel.js";
 export const getProjectsCreatedByFarmer = async (req, res, next) => {
   try {
     // check if user is a farmer
-    const userId = req.session.user.id || req.user.id;
-    const farmer = await FarmerModel.findById(userId);
+    const userId = req.session?.user?.id || req?.user?.id;
+    const farmer = await FarmerModel.findOne({ farmerId: userId });
     if (!farmer) {
       return res.status(403).send("User not authorised");
     }
@@ -16,9 +16,10 @@ export const getProjectsCreatedByFarmer = async (req, res, next) => {
     if (!farmerProjects) {
       return res.status(401).send("Farmer has no project");
     }
+    // const farmerProjectsCount = farmerProjects.countDocuments();
     const farmerProjectsCount = await ProjectModel.find({
-      createdAt: farmer._id,
-    }).count();
+      createdBy: farmer._id,
+    }).countDocuments();
     return res.status(200).json({
       farmerProjects: farmerProjects,
       farmerProjectsCount: farmerProjectsCount,
@@ -32,8 +33,8 @@ export const getProjectsCreatedByFarmer = async (req, res, next) => {
 export const getFarmerFullyFundedProjects = async (req, res, next) => {
   try {
     // check if user is a farmer
-    const userId = req.session.user.id || req.user.id;
-    const farmer = await FarmerModel.findById(userId);
+    const userId = req.session?.user?.id || req?.user?.id;
+    const farmer = await FarmerModel.findOne({ farmerId: userId });
     if (!farmer) {
       return res.status(403).send("User not authorised");
     }
@@ -43,13 +44,13 @@ export const getFarmerFullyFundedProjects = async (req, res, next) => {
       fundingStatus: "Closed",
     });
     if (!fullyFundedProjects) {
-      return res.status(401).send("Funded projects is empty");
+      return res.status(401).send("Can not get fully funded projects");
     }
     // const fullyFundedProjectsCount = fullyFundedProjects.length();
     const fullyFundedProjectsCount = await ProjectModel.find({
-      createdAt: farmer._id,
+      createdBy: farmer._id,
       fundingStatus: "Closed",
-    }).count();
+    }).countDocuments();
     return res.status(200).json({
       fullyFundedProjects: fullyFundedProjects,
       fullyFundedProjectsCount: fullyFundedProjectsCount,
@@ -63,8 +64,8 @@ export const getFarmerFullyFundedProjects = async (req, res, next) => {
 export const getFarmerNonFullyFundedProjects = async (req, res, next) => {
   try {
     // check if user is a farmer
-    const userId = req.session.user.id || req.user.id;
-    const farmer = await FarmerModel.findById(userId);
+    const userId = req.session?.user?.id || req?.user?.id;
+    const farmer = await FarmerModel.findOne({ farmerId: userId });
     if (!farmer) {
       return res.status(403).send("User not authorised");
     }
@@ -74,13 +75,13 @@ export const getFarmerNonFullyFundedProjects = async (req, res, next) => {
       fundingStatus: "Open",
     });
     if (!nonFullyFundedProjects) {
-      return res.status(401).send("No project is waiting or receiving project");
+      return res.status(401).send("Can not get projects waiting or receiving funding");
     }
     // const fullyFundedProjectsCount = fullyFundedProjects.length();
     const nonFullyFundedProjectsCount = await ProjectModel.find({
-      createdAt: farmer._id,
+      createdBy: farmer._id,
       fundingStatus: "Open",
-    }).count();
+    }).countDocuments();
     return res.status(200).json({
       nonFullyFundedProjects: nonFullyFundedProjects,
       nonFullyFundedProjectsCount: nonFullyFundedProjectsCount,
