@@ -1,30 +1,31 @@
 import { ProjectModel } from "../model/projectModel.js";
 import { FarmerModel } from "../model/farmerModel.js";
-import { projectSchema } from "../schema/projectSchema.js";
+import { projectSchema, updateProjectSchema } from "../schema/projectSchema.js";
 
 // Create Project
 export const createProject = async (req, res, next) => {
   try {
-    const { error, value } = projectSchema.validate({
-        ...value,
-        image: req.file.filename
-    });
-    if (error) {
-        return res.status(400).send(error.details[1].message);
+    const projectData = {
+      ...req.body,
+      image: req.file.filename
     }
-    const userId = req.session.user.id || req.user.id;
-    const farmer = await FarmerModel.findById(userId);
+    const { error, value } = projectSchema.validate(projectData);
+    if (error) {
+        return res.status(400).send(error.details[0].message);
+    }
+    const userId = req.session?.user?.id || req?.user?.id;
+    const farmer = await FarmerModel.findOne({ farmerId: userId });
     if (!farmer) {
         return res.status(401).send("Authorisation denied");
     }
+    // Create Project
     const project = await ProjectModel.create({...value, image: req.file.filename, createdBy: farmer._id});
-    farmer.projects.push(project._id);
+    farmer.createdProjects.push(project._id);
     await farmer.save();
     return res.status(201).json({
       message: "Project created successfully",
       project: project
-    })
-    
+    }) 
   } catch (error) {
     next(error);
   }
@@ -107,15 +108,17 @@ export const getNonFullyFundedProjects = async(req, res, next) => {
 // Update Project
 export const updateProject = async(req, res, next) => {
   try {
-    const { error, value } = projectSchema.validate({
+    const projectData = {
       ...req.body,
-      image: req.file.filename
-    })
-    if (error) {
-      return res.status(400).send(error.details[1].message);
+      image: req.file?.filename
     }
-    const userId = req.session.user.id || req.user.id;
-    const farmer = await FarmerModel.findById(userId);
+    const { error, value } = updateProjectSchema.validate(projectData);
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+    const userId = req.session?.user?.id || req?.user?.id;
+
+    const farmer = await FarmerModel.findOne({ farmerId: userId});
     if (!farmer) {
       return res.status(403).send('User not authorised');
     }
@@ -132,7 +135,7 @@ export const updateProject = async(req, res, next) => {
 // Delete Project
 export const deleteProject = async(req, res, next) => {
   try {
-    const userId = req.session.user.id || req.user.id;
+    const userId = req.session?.user?.id || req?.user?.id;
     if (!userId) {
       return res.status(403).send("User not authorised");
     }

@@ -1,47 +1,47 @@
 export const roles = [
     {
         role: "user",
-        permission: [
+        permissions: [
             // Permissions on projects
-            getOneProject,
-            filterProject,
-            getAllProject,
-            getFullyFundedProjects,
-            getNonFullyFundedProjects
+            "getOneProject",
+            "filterProject",
+            "getAllProject",
+            "getFullyFundedProjects",
+            "getNonFullyFundedProjects"
         ]
     },
     {
-        role: "farmer",
-        permission: [
+        role: "Farmer",
+        permissions: [
             // Permissions on projects
-            createProject,
-            updateProject,
-            deleteProject,
+            "createProject",
+            "updateProject",
+            "deleteProject",
             // Projects created by farmer
-            getProjectsCreatedByFarmer,
-            getProjectsCreatedByFarmerThatAreFullyFunded,
-            getProjectsCreatedByFarmerThatAreNotFullyFunded,
+            "getProjectsCreatedByFarmer",
+            "getProjectsCreatedByFarmerThatAreFullyFunded",
+            "getProjectsCreatedByFarmerThatAreNotFullyFunded",
             // Permissions on Funding
-            fundProject,
-            checkFundingAccount,
-            getProjectsTheFarmerInvestedIn,
+            "fundProject",
+            "checkFundingAccount",
+            "getProjectsYouInvestedIn",
             // Permissions on Account
-            checkBalance,
-            topUpAccount,
-            withdrawFromAccount
+            "checkBalance",
+            "topUpAccount",
+            "withdrawFromAccount"
         ]
     },
     {
-        role: "investor",
+        role: "Investor",
         permissions: [
             // Permissions on Funding
-            fundProject,
-            checkFundingAccount,
-            getProjectsTheInvestorInvestedIn,
+            "fundProject",
+            "checkFundingAccount",
+            "getProjectsYouInvestedIn",
             // Permissions on Account
-            checkBalance,
-            topUpAccount,
-            withdrawFromAccount
+            "checkBalance",
+            "topUpAccount",
+            "withdrawFromAccount"
         ]
     },
 ]

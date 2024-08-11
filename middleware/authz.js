@@ -1,4 +1,5 @@
-import { roles } from "../config/UserRoles";
+import { roles } from "../config/UserRoles.js";
+import { UserModel } from "../model/userModel.js";
 
 export const hasPermission = (permission) => {
     return async (req, res, next) => {
