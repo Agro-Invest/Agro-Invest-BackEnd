@@ -1,4 +1,5 @@
 import { Schema, model, Types } from "mongoose";
+import { toJSON } from "@reis/mongoose-to-json";
 
 const fundSchema = new Schema({
     project: {type: Types.ObjectId, ref: "Project"},
@@ -7,4 +8,5 @@ const fundSchema = new Schema({
     contributors: [{type: Types.ObjectId, ref: "User"}]
 })
 
+fundSchema.plugin(toJSON);
 export const FundModel = model("Fund", fundSchema);

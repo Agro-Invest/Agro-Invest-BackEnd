@@ -4,6 +4,6 @@ import { isAuthenticated } from "../middleware/authn.js";
 import { hasPermission } from "../middleware/authz.js";
 
 export const farmerRouter = Router();
-farmerRouter.get('/user/projectcreatedbyfarmer', isAuthenticated, hasPermission("getProjectsCreatedByFarmer"), getProjectsCreatedByFarmer);
-farmerRouter.get('/user/farmerfullyfundedprojects', isAuthenticated, hasPermission("getProjectsCreatedByFarmerThatAreFullyFunded"), getFarmerFullyFundedProjects);
-farmerRouter.get('/user/farmernonfullyfundedprojects', isAuthenticated, hasPermission("getProjectsCreatedByFarmerThatAreNotFullyFunded"), getFarmerNonFullyFundedProjects);
+farmerRouter.get('/farmer/projectcreatedbyfarmer', isAuthenticated, hasPermission("getProjectsCreatedByFarmer"), getProjectsCreatedByFarmer);
+farmerRouter.get('/farmer/fullyfundedproject', isAuthenticated, hasPermission("getProjectsCreatedByFarmerThatAreFullyFunded"), getFarmerFullyFundedProjects);
+farmerRouter.get('/farmer/projectnotfullyfunded', isAuthenticated, hasPermission("getProjectsCreatedByFarmerThatAreNotFullyFunded"), getFarmerNonFullyFundedProjects);

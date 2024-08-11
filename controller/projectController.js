@@ -56,20 +56,20 @@ export const getProjectById = async(req, res, next) => {
 }
 
 // Get project by querry
-export const getProjectByQuery = async(req, res, next) => {
-  try {
-    const { filter, limit, skip } = req.query;
-    const projects = await ProjectModel
-      .find(JSON.parse(filter))
-      .limit(JSON.parse(limit))
-      .skip(JSON.parse(skip))
-    return res.status(200).json({
-      projects: projects
-    })
-  } catch (error) {
-    next(error);
-  }
-}
+// export const getProjectByQuery = async(req, res, next) => {
+//   try {
+//     const { filter, limit, skip } = req.query;
+//     const projects = await ProjectModel
+//       .find(JSON.parse(filter))
+//       .limit(JSON.parse(limit))
+//       .skip(JSON.parse(skip))
+//     return res.status(200).json({
+//       projects: projects
+//     })
+//   } catch (error) {
+//     next(error);
+//   }
+// }
 
 // Get all fully funded projects
 export const getFullyFundedProjects = async(req, res, next) => {

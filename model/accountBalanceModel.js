@@ -1,4 +1,5 @@
 import {Schema, model, Types } from "mongoose";
+import { toJSON } from "@reis/mongoose-to-json";
 
 const accountBalanceSchema = new Schema({
 
@@ -10,4 +11,5 @@ const accountBalanceSchema = new Schema({
     timestamps: true
 })
 
+accountBalanceSchema.plugin(toJSON);
 export const AccountBalanceModel = model('AccountBalance', accountBalanceSchema)

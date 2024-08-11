@@ -1,4 +1,5 @@
 import {Schema, model, Types } from "mongoose";
+import { toJSON } from "@reis/mongoose-to-json";
 
 const transactionSchema = new Schema({
 
@@ -12,4 +13,5 @@ const transactionSchema = new Schema({
     timestamps: true
 })
 
+transactionSchema.plugin(toJSON);
 export const TransactionModel = model("Transaction", transactionSchema);
