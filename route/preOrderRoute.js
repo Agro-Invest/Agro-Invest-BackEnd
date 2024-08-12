@@ -5,5 +5,5 @@ import { hasPermission } from "../middleware/authz.js";
 
 export const preOrderRouter = Router();
 preOrderRouter.post('/preorder/preorderproject/:id', isAuthenticated, hasPermission('pre-order'), preOrderProject);
-preOrderRouter.get('/preorder/preorderedprojects', isAuthenticated, hasPermission('getPreOrderProjects'),getPreOrdedProjects);
+preOrderRouter.get('/preorder/userpreorderedprojects', isAuthenticated, hasPermission('getPreOrderProjects'),getPreOrdedProjects);
 
