@@ -4,4 +4,4 @@ import { isAuthenticated } from "../middleware/authn.js";
 import { hasPermission } from "../middleware/authz.js";
 
 export const accountBalanceRouter = Router();
-accountBalanceRouter.get('/accounts/appwallet', isAuthenticated, hasPermission("checkBalance"), checkAccountBalance);
+accountBalanceRouter.get('/accounts/application-wallet', isAuthenticated, hasPermission("checkBalance"), checkAccountBalance);

@@ -35,6 +35,11 @@ export const fundProject = async (req, res, next) => {
     const fundsNeeded = project.fundsNeeded;
     const fundsAccumulated = project.fundsAccumulated;
     const fundsRequiredToMeetTarget = fundsNeeded - fundsAccumulated;
+    if (fundsNeeded === fundsAccumulated) {
+      project.fundingStatus = "Closed";
+      project.save();
+      return res.status(400).json("Sorry valued customer,Project is fully funded already");
+    }
     // Compare the amount the user wants to invest to the amount remaining to meet target
     if (fundsRequiredToMeetTarget < value.amount) {
       return res.status(400).send("Cannot fund more than required amount");
@@ -54,7 +59,7 @@ export const fundProject = async (req, res, next) => {
     await userAccount.save()
 
     // Update funding account balance
-    const fundingAccount = await FundingAccountModel.findOne({ fundAccountHoler: userId });
+    const fundingAccount = await FundingAccountModel.findOne({ fundAccountHolder: userId });
     let fundingAccountBalance = fundingAccount.amount;
     fundingAccountBalance = fundingAccountBalance + value.amount;
     fundingAccount.amount = fundingAccountBalance;
@@ -85,6 +90,10 @@ export const fundProject = async (req, res, next) => {
       // Update funds accumulated on a project
       project.fundsAccumulated = fundingProject.amount
       project.fundedBy.push(userId);
+      if (fundsNeeded === project.fundsAccumulated) {
+        project.fundingStatus = "Closed";
+        project.save();
+      }
       await project.save();
       fundingProject.contributors.push(userId);
       await fundingProject.save();
@@ -100,7 +109,16 @@ export const fundProject = async (req, res, next) => {
       project: req.params.id,
     });
     if (newFundingProject) {
-      project.fundsAccumulated = newFundingProject.amount;
+      // project.fundsAccumulated = newFundingProject.amount;
+      // Update funds accumulated on a project
+      project.fundsAccumulated = newFundingProject.amount
+      project.fundedBy.push(userId);
+      if (fundsNeeded === project.fundsAccumulated) {
+        project.fundingStatus = "Closed";
+      }
+      await project.save();
+      newFundingProject.contributors.push(userId);
+      await newFundingProject.save();
       return res.status(201).json({
         message: "Started funding",
         newFundingProject: newFundingProject,
