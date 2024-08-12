@@ -28,7 +28,10 @@ export const roles = [
             // Permissions on Account
             "checkBalance",
             "topUpAccount",
-            "withdrawFromAccount"
+            "withdrawFromAccount",
+            // Permissions on pre-order
+            "pre-order",
+            "getPreOrderProjects"
         ]
     },
     {
@@ -41,7 +44,10 @@ export const roles = [
             // Permissions on Account
             "checkBalance",
             "topUpAccount",
-            "withdrawFromAccount"
+            "withdrawFromAccount",
+            // Permissions on pre-order
+            "pre-order",
+            "getPreOrderProjects"
         ]
     },
 ]

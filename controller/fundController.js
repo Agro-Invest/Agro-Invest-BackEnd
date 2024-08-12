@@ -16,7 +16,6 @@ export const fundProject = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
     const userId = req.session?.user?.id || req?.user?.id;
-    console.log(userId);
     // check for existing user
     const user = await UserModel.findById(userId );
     if (!user) {
@@ -89,9 +88,9 @@ export const fundProject = async (req, res, next) => {
       await project.save();
       fundingProject.contributors.push(userId);
       await fundingProject.save();
-      return res.status(201).json({
+      return res.status(200).json({
         message: "Funds added successfully",
-        fundingProject: fundingProject,
+        fundingProject: fundingProject
       });
     }
     // Create a new funding document
