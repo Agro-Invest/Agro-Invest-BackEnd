@@ -16,6 +16,7 @@ const projectSchema = new Schema({
     fundingStatus: {type: String, enum:['Open', 'Closed']},
     minimumReturnOnInvestment: {type: String, required: true},
     maximumReturnOnInvestment: {type: String, required: true},
+    sellingPrice: {type: Number, default: 0},
     createdBy: {type: Types.ObjectId, ref: 'Farmer'},
     fundedBy: [{type: Types.ObjectId, ref: 'User'}],
     // NB: Require

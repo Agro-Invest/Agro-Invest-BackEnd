@@ -13,7 +13,8 @@ export const projectSchema = Joi.object({
     fundsNeeded: Joi.number().required(),
     fundingStatus: Joi.string().valid('Open', 'Closed').default('Open'),
     minimumReturnOnInvestment: Joi.string().required(),
-    maximumReturnOnInvestment: Joi.string().required()
+    maximumReturnOnInvestment: Joi.string().required(),
+    sellingPrice: Joi.number().optional()
 
 })
 
@@ -30,7 +31,8 @@ export const updateProjectSchema = Joi.object({
     fundsNeeded: Joi.number().optional(),
     fundingStatus: Joi.string().valid('Open', 'Closed').optional(),
     minimumReturnOnInvestment: Joi.string().optional(),
-    maximumReturnOnInvestment: Joi.string().optional()
+    maximumReturnOnInvestment: Joi.string().optional(),
+    sellingPrice: Joi.number().optional()
 
 })
 

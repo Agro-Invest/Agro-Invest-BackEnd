@@ -10,6 +10,6 @@ projectRouter.get('/projects/getallprojects', getAllProjects);
 projectRouter.get('/projects/getproject/:id', getProjectById);
 // projectRouter.get('/projects/getprojectbyquery', getProjectByQuery);
 projectRouter.get('/projects/getfullyfundedprojects', getFullyFundedProjects);
-projectRouter.get('/projects/getprojectsnotfullyfunded', getNonFullyFundedProjects);
+projectRouter.get('/projects/getnotfullyfundedprojects', getNonFullyFundedProjects);
 projectRouter.patch('/projects/updateproject/:id', isAuthenticated, hasPermission("updateProject"), updateProject);
 projectRouter.delete('/projects/deleteproject/:id', isAuthenticated, hasPermission("deleteProject"), deleteProject);
