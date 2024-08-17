@@ -92,7 +92,6 @@ export const fundProject = async (req, res, next) => {
       project.fundedBy.push(userId);
       if (fundsNeeded === project.fundsAccumulated) {
         project.fundingStatus = "Closed";
-        project.save();
       }
       await project.save();
       fundingProject.contributors.push(userId);
